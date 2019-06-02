@@ -40,10 +40,10 @@ describe("getElementsByClassName", () => {
         let result = getElementsByClassName("targetClassName");
         let expectedNodeList = document.getElementsByClassName(
           "targetClassName"
-        );
-        let expectedArray = Array.prototype.slice.apply(expectedNodeList);
-        expect(result).toEqual(expectedArray);
-        body.removeChild($rootElement);
+          );
+          let expectedArray = Array.prototype.slice.apply(expectedNodeList);
+          expect(result).toEqual(expectedArray);
+          body.removeChild($rootElement);
       }
     );
   }
