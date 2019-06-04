@@ -10,6 +10,17 @@
   But we don't like easy! So we'll make you write your own.
 */
 
-const getElementsByClassName = () => {
+const getElementsByClassName = (target) => {
   // YOUR CODE HERE
+  let result = [];
+  function recurse(currentNode, target) {
+    if (currentNode.childNodes.length > 0) {
+      currentNode.childNodes.forEach(node => {
+        if (node.className && node.className.split(' ').includes(target)) {result.push(node)};
+        if (node.childNodes.length > 0) {recurse(node, target)}
+      })
+    } 
+  }
+  recurse(document.documentElement, target);
+  return result;
 };
