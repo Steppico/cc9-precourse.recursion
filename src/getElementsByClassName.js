@@ -9,9 +9,6 @@
 
   But we don't like easy! So we'll make you write your own.
 */
-
-// console.log(document.children);
-
 const getElementsByClassName = (className) => {
   const allChildElements = [];
   const nodeList = document.children[0].children;//assign head and body into "nodeList"
