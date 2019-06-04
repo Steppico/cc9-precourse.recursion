@@ -13,9 +13,9 @@ const stringifyJSON = (value) => {
   } else if (value === null) {
     return 'null';
   } else if (typeof value === "string") {
-    return '\"' + value + '\"';
-  } else if (typeof value === "number" || typeof value === "boolean") {
-    //surprisingly works as desired for booleans too
+    return '"' + value + '"';
+  } else if (typeof value === "number" || typeof value === "boolean" || value instanceof Date)  {
+    //surprisingly works as desired for booleans and Date objects too
     return value.toString(10);
   } else if (Array.isArray(value)) {
     return '[' + value.reduce((result, item) => {
