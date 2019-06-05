@@ -48,7 +48,7 @@ const stringifyJSON = (item) => {
       return result = '{}';
     };
     if(Object.prototype.toString.call(item) === '[object Date]'){
-      return result += item.toISOString();
+      return result = `"${item.toISOString()}"`;
     } else {
       result += '{';
       for(const key in item){
