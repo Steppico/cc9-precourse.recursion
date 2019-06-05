@@ -69,7 +69,3 @@ const stringifyJSON = (item) => {
     return innerJSON(item);
   };
 };
-
-const date = new Date();
-
-console.log(stringifyJSON({foo:[date, date]}));
