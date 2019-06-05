@@ -28,7 +28,7 @@ const stringifyJSON = (item) => {
     };
   };
 
-  function innerJSON(item) {
+  const innerJSON = (item) => {
   if(typeof item !== 'object' || item === null){//primitive case or error
       return stringConverter(item);
     } else if(item.length >= 0){//Array case
@@ -38,30 +38,34 @@ const stringifyJSON = (item) => {
     result += '[';
     for(let i = 0; i < item.length; i++){
       result += stringifyJSON(item[i]) + ',';
-    }
+    };
     result = result.slice(0, result.length-1)
     result += ']';
     return result;
   } else if(Object.keys(item).length >= 0){//Object case
-    if(Object.keys(item).length === 0){
+    let keys = Object.keys(item);
+    if(keys.length === 0 && Object.prototype.toString.call(item) !== '[object Date]'){
       return result = '{}';
     };
-    result += '{';
-    for(const key in item){
+    if(Object.prototype.toString.call(item) === '[object Date]'){
+      return result += item.toString();
+    } else {
+      result += '{';
+      for(const key in item){
       result += stringifyJSON(key) + ':' + stringifyJSON(item[key]) + ',';
-      }
-    result = result.slice(0, result.length-1) 
-    result += '}'
-    return result;
+      };
+    }
+      result = result.slice(0, result.length-1) 
+      result += '}'
+      return result;
+    };
   };
-};
 
-//invoke error check, if pass the test, then start conversion.
-errorChecker(item);
-if(result){
-  return '{}';
-} else {
-  return innerJSON(item);
-};
-
+  //invoke error check, if pass the test, then start conversion.
+  errorChecker(item);
+  if(result){
+    return '{}';
+  } else {
+    return innerJSON(item);
+  };
 };
