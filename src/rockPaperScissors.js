@@ -17,6 +17,23 @@
  *   rockPaperScissors(4); // => [['rock', 'rock', 'rock', 'rock'], etc...]
  */
 
-const rockPaperScissors = () => {
-  // Your code here
+const rockPaperScissors = (n=3) => {
+  const possibleHands = ["rock", "paper", "scissors"];
+  const rounds = n;
+  console.log(rounds)
+  const result = [];
+
+  function recursion(roundsLeft, played){
+    if (roundsLeft === 0) {
+      result.push(played);
+      return;
+    } else {
+      for (let i = 0; i < possibleHands.length; i++) {
+        recursion(roundsLeft-1, played.concat(possibleHands[i]))
+      }
+    }
+  };
+  recursion(rounds, []);
+  console.log(result)
+  return result;
 };
