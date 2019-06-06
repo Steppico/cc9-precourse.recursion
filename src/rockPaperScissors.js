@@ -20,7 +20,6 @@
 const rockPaperScissors = (n=3) => {
   const possibleHands = ["rock", "paper", "scissors"];
   const rounds = n;
-  console.log(rounds)
   const result = [];
 
   function recursion(roundsLeft, played){
