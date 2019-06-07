@@ -12,38 +12,47 @@
 
 const getElementsByClassName = (n) => {
   let x = document.getElementsByClassName(n)
-  let l = new Date(Date.now()).toLocaleString()
+  let l = new Date(Date.now()).toString()
   console.log("guarda qua", typeof l, l)
   console.log(x[0])
   console.log(x[1])
   console.log(n)
   let result = [];
   
+
+//   var walkDOM = function (node,func) {
+//     console.log(node)
+//     if (node.className === n) {
+//       result.push(node)
+//     }
+//     console.log("guardami..",func(node))
+//     func(node);                     //What does this do?
+//     node = node.firstChild;
+//     while(node) {
+//         walkDOM(node,func);
+//         node = node.nextSibling;
+//     }
+
+// };
+
+//   walkDOM(document.body,function(att) {
+//     document.body.getAttribute(att);
+//     })
+
+
   function recursive(tag) {
-    console.log("taggo", tag)
-    console.log("ahehm", tag.className, tag.className===n)
+    console.log(tag)
     if (tag.className === n) {
-      console.log("result prima aggiunta", result)
       result.push(tag)
-      console.log("result dopo aggiunta", result)
     }
-      if (tag.hasChildNodes()) {
-        console.log("Child: T.", tag.childNodes);
+     if (tag.hasChildNodes()) {
         return recursive(tag.firstChild);
       } else if (tag.nextSibling) {
-        console.log("Child: F.", tag)
-        console.log("Sibling: T.!", typeof tag.nextSibling, tag.nextSibling)
         return recursive(tag.nextSibling);
       } else if (!tag.nextSibling) {
-        let savetag = tag;
-        console.log("Sibling: F.")
-        tag = tag.parentElement;
-        console.log("Back to Parent:", tag)
-        tag = tag.nextSibling;
-        console.log("Parent Sibling: T.", tag)
+        tag = tag.parentNode.nextSibling;
         if (tag === null) {
-          console.log("Parent Sibling: F.", tag)
-          return recursive(savetag);
+          return ;
         }
         return recursive(tag);
       } 
@@ -54,7 +63,7 @@ const getElementsByClassName = (n) => {
       return;
     } 
   };
-    recursive(document.documentElement);
+    recursive(document.body);
     console.log("I. Am. Result!", result)
     return result;
 };
