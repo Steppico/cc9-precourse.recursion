@@ -3,12 +3,11 @@
   /*
 
   What does the output for stringifyJSON look like? Play around with JSON.stringify to find out!
-    let l = new Date(Date.now()).toString()
 
   */
     
   const stringifyJSON = (value) => {
-  console.log(value)
+  console.log("sono JAYSON", JSON.stringify(value))
     let result = [];
 
     function recursive(core) {
@@ -21,7 +20,7 @@
       } else if (typeof core === "object") {
         recursObj(core);
       } else if (typeof core === "function") {
-        return "{}"; 
+        return "{" + new Date(Date.now()).toString() + "}"; 
       }
     }
 
