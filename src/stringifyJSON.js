@@ -7,9 +7,11 @@
   */
     
   const stringifyJSON = (value) => {
+   
     let result = [];
 
     function recursive(core) {
+
       if (typeof core === "number" || typeof core === "boolean" || core === null) {
         result.push(recursDoubleQuotes(core));
       } else if (typeof core === "string") {
@@ -19,8 +21,12 @@
       } else if (typeof core === "object") {
         recursObj(core);
       } else if (typeof core === "function") {
-        return "{" + new Date(Date.now()).toString() + "}"; 
+        recursFunc();
       }
+    }
+    
+    function recursFunc() {
+      result.push("{}");
     }
 
     let key = Object.keys
@@ -33,17 +39,28 @@
         for (let i = 0; i < key(obj).length; i++) {
 
           if (typeof values(obj)[i] === "function" || values(obj)[i] === undefined) {
-            console.log("vero")
-            result.push("{}");
+            recursFunc();
             return;
           }
 
           if (i === 0) {
             result.push("{");
           }
+
+          if (key(obj)[i] instanceof Date) {
+            recursive(key(obj)[i].toISOString())
+          } else {
           recursive(key(obj)[i]);
+          }
+          
           result.push(":");
+          
+          if (values(obj)[i] instanceof Date) {
+            recursive(values(obj)[i].toISOString())
+          } else {
           recursive(values(obj)[i]);
+          }
+
           if (i !== key(obj).length-1) {
           result.push(",")
           } 
