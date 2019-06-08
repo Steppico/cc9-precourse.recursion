@@ -8,9 +8,6 @@ What does the output for stringifyJSON look like? Play around with JSON.stringif
 */
   
 const stringifyJSON = (enne) => {
-  console.log(enne)
-  console.log(JSON.stringify(enne))
-  // return JSON.stringify(enne)
 
   let open = "";
   let close = "";
