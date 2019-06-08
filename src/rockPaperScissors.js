@@ -33,6 +33,5 @@ const rockPaperScissors = (n=3) => {
     }
   };
   recursion(rounds, []);
-  console.log(result)
   return result;
 };
