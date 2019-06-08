@@ -83,7 +83,12 @@
         if (i === arr[0]) {
         result.push("[");
         }
-        if (typeof i === "object" && !Array.isArray(i)) {
+        if (i instanceof Date) {
+          recursive(i);
+          if (i !== arr[arr.length-1]) {
+            result.push(",");
+          }
+        } else if (typeof i === "object" && !Array.isArray(i)) {
           recursObj(i);
           if (i !== arr[arr.length-1]) {
           result.push(",")
