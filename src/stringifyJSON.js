@@ -7,7 +7,6 @@
   */
     
   const stringifyJSON = (value) => {
-  console.log("sono JAYSON", JSON.stringify(value))
     let result = [];
 
     function recursive(core) {
