@@ -23,11 +23,29 @@
       }
     }
 
+    let key = Object.keys
+    let values = Object.values
+
     function recursObj(obj) {
-      if(Object.keys(obj).length === 0) {
+
+      if(key(obj).length === 0) {
         result.push("{}")
       } else {
-        return "ciao"
+        for (let i = 0; i < key(obj).length; i++) {
+
+          if (i === 0) {
+            result.push("{");
+          }
+          recursive(key(obj)[i]);
+          result.push(":");
+          recursive(values(obj)[i]);
+          if (i !== key(obj).length-1) {
+          result.push(",")
+          } 
+          if (i === key(obj).length-1) {
+            result.push("}");  
+          }
+        }
       }
     }
 
@@ -47,7 +65,12 @@
         if (i === arr[0]) {
         result.push("[");
         }
-        if (Array.isArray(i)) {
+        if (typeof i === "object" && !Array.isArray(i)) {
+          recursObj(i);
+          if (i !== arr[arr.length-1]) {
+          result.push(",")
+          }
+        } else if (Array.isArray(i)) {
           recursArray(i);
           if (i !== arr[arr.length-1]) {
             result.push(",")
@@ -60,8 +83,13 @@
               result.push(i)
             }
           } else {
+            if (typeof i === "string") {
+            result.push(recursSingleQuotes(i));
+            result.push(",");
+          } else {
             result.push(i+",");
           }
+        }
         }
         if (i === arr[arr.length-1]) {
           result.push("]");
@@ -69,7 +97,6 @@
       }
     }
       
-
 
 
   recursive(value);
