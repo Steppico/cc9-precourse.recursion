@@ -7,24 +7,30 @@
   */
     
   const stringifyJSON = (value) => {
-   
+
     let result = [];
 
     function recursive(core) {
-
+      
       if (typeof core === "number" || typeof core === "boolean" || core === null) {
         result.push(recursDoubleQuotes(core));
       } else if (typeof core === "string") {
         result.push(recursSingleQuotes(core));
+      } else if (core instanceof Date) {
+        recursTime(core);
       } else if (Array.isArray(core)) {
         recursArray(core);
-      } else if (typeof core === "object") {
+      }else if (typeof core === "object") {
         recursObj(core);
       } else if (typeof core === "function") {
         recursFunc();
       }
     }
     
+    function recursTime(time) {
+      recursive(time.toISOString())
+    }
+
     function recursFunc() {
       result.push("{}");
     }
@@ -47,19 +53,9 @@
             result.push("{");
           }
 
-          if (key(obj)[i] instanceof Date) {
-            recursive(key(obj)[i].toISOString())
-          } else {
           recursive(key(obj)[i]);
-          }
-          
           result.push(":");
-          
-          if (values(obj)[i] instanceof Date) {
-            recursive(values(obj)[i].toISOString())
-          } else {
           recursive(values(obj)[i]);
-          }
 
           if (i !== key(obj).length-1) {
           result.push(",")
