@@ -11,59 +11,36 @@
 */
 
 const getElementsByClassName = (n) => {
-  let x = document.getElementsByClassName(n)
-  let l = new Date(Date.now()).toString()
-  console.log("guarda qua", typeof l, l)
-  console.log(x[0])
-  console.log(x[1])
-  console.log(n)
+
   let result = [];
-  
-
-//   var walkDOM = function (node,func) {
-//     console.log(node)
-//     if (node.className === n) {
-//       result.push(node)
-//     }
-//     console.log("guardami..",func(node))
-//     func(node);                     //What does this do?
-//     node = node.firstChild;
-//     while(node) {
-//         walkDOM(node,func);
-//         node = node.nextSibling;
-//     }
-
-// };
-
-//   walkDOM(document.body,function(att) {
-//     document.body.getAttribute(att);
-//     })
-
 
   function recursive(tag) {
-    console.log(tag)
-    if (tag.className === n) {
-      result.push(tag)
+
+    if (tag === null) {
+      return;
     }
+    
+    if (tag.className) {
+      if (tag.className.match(n)) {
+        result.push(tag);
+      }
+    }
+
      if (tag.hasChildNodes()) {
         return recursive(tag.firstChild);
       } else if (tag.nextSibling) {
         return recursive(tag.nextSibling);
       } else if (!tag.nextSibling) {
+        if (tag.parentNode.nextSibling) {
         tag = tag.parentNode.nextSibling;
-        if (tag === null) {
-          return ;
-        }
+        } else if (!tag.parentNode.nextSibling) {
+          tag = tag.parentNode.parentNode.nextSibling;
+        };
         return recursive(tag);
       } 
     
-    if (tag === null) {
-      return "finito";
-    } else {
-      return;
-    } 
+
   };
-    recursive(document.body);
-    console.log("I. Am. Result!", result)
+    recursive(document.documentElement);
     return result;
 };
