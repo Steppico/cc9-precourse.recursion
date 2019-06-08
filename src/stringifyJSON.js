@@ -20,6 +20,8 @@
         recursArray(core);
       } else if (typeof core === "object") {
         recursObj(core);
+      } else if (typeof core === "function") {
+        return "{}"; 
       }
     }
 
@@ -27,11 +29,16 @@
     let values = Object.values
 
     function recursObj(obj) {
-
       if(key(obj).length === 0) {
         result.push("{}")
       } else {
         for (let i = 0; i < key(obj).length; i++) {
+
+          if (typeof values(obj)[i] === "function" || values(obj)[i] === undefined) {
+            console.log("vero")
+            result.push("{}");
+            return;
+          }
 
           if (i === 0) {
             result.push("{");
